@@ -1,0 +1,108 @@
+.dashboard-card{
+  width: 80vw;
+}
+ul{
+  list-style-type: none;
+  padding: 10px;
+  max-height: 20vh;
+  overflow-y: scroll;
+  transition: 0.5 all;
+}
+li{
+  background-color: #e4fbff;
+  text-align: center;
+  color:#7868e6;
+  overflow: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  transition: 0.5 all;
+  /* width: 190px; */
+}
+a{
+  text-decoration: none;
+  color:#7868e6;
+  font-weight: bold;
+  /* display: inline-block; */
+  width: 100%;
+}
+span.delete{
+  display: inline-block;
+  float: right;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.add{
+  font-size: 2.0rem;
+  position: absolute;
+  z-index: 2;
+  right: 30px;
+  bottom: 30px;
+  background-color: #7868e6;
+  color: white;
+
+}
+.dashboard-card{
+  background-color: #edeef7;
+  position: relative;
+}
+.field{
+  background-color: white;
+  height: 65vh;
+  overflow-y: scroll;
+  transition: 0.5 all;
+}
+.side-bar{
+    background-color: #7868e6;
+    color: #edeef7;
+    border-radius: 0.5rem;
+    min-height: 60vh;
+
+}
+.field{
+  border-radius: 0.5rem;
+  min-height: 60vh;
+}
+ul::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ul::-webkit-scrollbar-track {
+    background: #7868e6; 
+    border-radius: 0.5rem;
+  }
+   
+  /* Handle */
+  ul::-webkit-scrollbar-thumb {
+    background: #9c99ff; 
+    border-radius: 0.5rem;
+  }
+  
+  /* Handle on hover */
+  ul::-webkit-scrollbar-thumb:hover {
+    background: #b8b5ff; 
+  }
+/*--------------------------------------------*/
+  .field::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  .field::-webkit-scrollbar-track {
+    background: white; 
+    border-radius: 0.5rem;
+  }
+   
+  /* Handle */
+  .field::-webkit-scrollbar-thumb {
+    background: #9c99ff; 
+    border-radius: 0.5rem;
+  }
+  
+  /* Handle on hover */
+  .field::-webkit-scrollbar-thumb:hover {
+    background: #7868e6; 
+  }
+  table {
+    width: 100%;
+  }

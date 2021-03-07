@@ -1,0 +1,21 @@
+.signup-card{
+    width: 30rem;
+}
+.signup-form{
+    margin: auto;
+    text-align: center;
+}
+.input-field{
+    width: 80%;
+    margin: auto;
+}
+a{
+    text-decoration: none;
+
+}
+.cart-header{
+    text-align: center;
+}
+.hide{
+    display: none;
+}

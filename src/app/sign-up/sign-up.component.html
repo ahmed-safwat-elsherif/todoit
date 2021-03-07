@@ -1,0 +1,61 @@
+<mat-card class="signup-card">
+  <!-- <mat-card-header >
+    <div mat-card-avatar class="example-header-image">sadfsd</div>
+    <mat-card-title>Sign up</mat-card-title>
+  </mat-card-header> -->
+  <h2 class="cart-header">Sign Up</h2>
+  <mat-card-content>
+    <form class="signup-form" [formGroup]="signupForm">
+      <mat-form-field class="input-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" #email placeholder="Ex. example@gmail.com" formControlName="email">
+        <mat-error *ngIf="this.signupForm.controls.email.errors && this.signupForm.controls.email.errors.required">Email is required</mat-error>
+        <mat-error *ngIf="this.signupForm.controls.email.errors && !this.signupForm.controls.email.errors.required && this.signupForm.controls.email.errors.emailNotValid">Email is invaild</mat-error>
+        <mat-error #aa *ngIf="true">Email already exists</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="input-field">
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" placeholder="Ex. John Wick" formControlName="firstname">
+        <mat-error *ngIf="this.signupForm.controls.firstname.errors?.required">First name is required</mat-error>
+        <mat-error *ngIf="!this.signupForm.controls.firstname.errors?.required && _form.firstname.errors?.min">First name must be minimum 3 characters</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="input-field">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" placeholder="Ex. John Wick" formControlName="lastname">
+        <mat-error *ngIf="this.signupForm.controls.lastname.errors?.required">Last name is required</mat-error>
+        <mat-error *ngIf="!this.signupForm.controls.lastname.errors?.required && _form.lastname.errors?.min">Last name must be minimum 3 characters</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="input-field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="" formControlName="password">
+        <mat-error *ngIf="this.signupForm.controls.password.errors && this.signupForm.controls.password.errors.required">Password is required</mat-error>
+        <mat-error *ngIf="this.signupForm.controls.password.errors && !this.signupForm.controls.password.errors.required && this.signupForm.controls.password.errors.passwordWeak">Password is very weak</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="input-field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" placeholder="" formControlName="confirmPassword">
+        <mat-error *ngIf="_form?.confirmPassword.errors?.notMatch || _form?.confirmPassword.errors?.required">confirm password must match password</mat-error>
+      </mat-form-field>
+      
+    </form>
+
+  </mat-card-content>
+  <div class="footer-buttons text-center">
+    <button mat-raised-button color="primary" (click)="goSignup()" [disabled]="!this.signupForm.valid || loading">
+      <span [class]="isLoad">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </span>
+      Sign up
+    </button>
+  </div>
+  <div class="options text-center mt-3">
+    <a [routerLink]="['/login']" >Already have account?</a>
+  </div>
+  <mat-card-actions>
+    <!-- <button mat-button (click)="goLogin()">Go login</button> -->
+  </mat-card-actions>
+</mat-card>

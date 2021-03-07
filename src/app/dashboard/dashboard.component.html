@@ -1,0 +1,76 @@
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Dashboard</mat-card-title>
+    <mat-card-subtitle>Welcome, {{user.fullname.split(" ")[0]}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 side-bar p-2">
+          <p class="pt-1">
+            <span matBadge="{{groups.length}}" matBadgeOverlap="false"><span style="font-size: 1.1rem;">Groups</span></span>
+          </p>
+          <div *ngIf="!sideBarIsGroupLoading && !sideBarIsGroupError">
+            <ul class="todo-groups">
+              <li class="todo-group-card p-2 mb-2 rounded-pill" *ngFor="let todoGroup of groups">
+                <a [routerLink]="['/dashboard/todo-group/',todoGroup._id]">{{todoGroup.title}}</a>
+                <span class="delete">&#10005;</span>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="sideBarIsGroupLoading && !sideBarIsGroupError" class="d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="errors" *ngIf="sideBarIsGroupError">
+            <h3>Unable to get groups</h3>
+          </div>
+          <hr>          
+          <p class="pt-1">
+            <span matBadge="{{solos.length}}" matBadgeOverlap="false"><span style="font-size: 1.1rem;">Solos</span></span>
+          </p>
+          <div *ngIf="!sideBarIsSoloLoading && !sideBarIsSoloError">
+            <ul class="todos">
+              <li class="todo-card p-2 mb-2 rounded-pill" *ngFor="let todo of solos">
+                <a [routerLink]="['/dashboard/todo/',todo._id]">{{todo.title}}</a>
+                <span class="delete">&#10005;</span>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="sideBarIsSoloLoading && !sideBarIsSoloError" class="d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="errors" *ngIf="sideBarIsSoloError">
+            <h3>Unable to get groups</h3>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="field p-2">
+            Dashboard
+            <div *ngIf="!dashboardIsLoading">
+              <router-outlet></router-outlet>
+            </div>
+            <div *ngIf="dashboardIsLoading">
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+  </mat-card-content>
+  <!-- <mat-card-actions>
+  </mat-card-actions> -->
+  <button (click)="openDialogTodo()" mat-fab class="add" aria-label="Example icon button with a home icon">&#43;
+    <!-- <mat-icon>plus</mat-icon> -->
+  </button>
+</mat-card>

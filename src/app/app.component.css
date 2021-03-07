@@ -1,0 +1,10 @@
+.app-root{
+    background-color: #b8b5ff;
+    min-height: 100vh;
+}
+.app-title{
+    color:white;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-shadow:0 0 30px #5650ff;
+}
