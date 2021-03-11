@@ -1,5 +1,5 @@
-import { Component, Output, EventEmitter, Inject, OnInit} from '@angular/core';
-import { MatDialog, MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Output, EventEmitter, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { TodoGroupService } from '../services/todo-group.service';
@@ -31,8 +31,8 @@ export class DialogEditTodoComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogEditTodoComponent>,
     private todoService: TodoService,
     private todoGroupService: TodoGroupService,
-    private route:ActivatedRoute,
-    private router:Router,
+    private route: ActivatedRoute,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -65,34 +65,57 @@ export class DialogEditTodoComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
-  updateItem(flag){
+  updateItem(flag) {
     let title = this.title,
-    body = this.body,
-    tags = this.tags, 
-    _id = this._id,
-    status = this.status;
+      body = this.body,
+      tags = this.tags,
+      _id = this._id,
+      status = this.status;
     console.log(flag)
-    if(flag == 1){
-      this.todoService.patchTodo(_id,{title, body, tags, _id,status}).subscribe(
-        (res:any)=>{
+    var currentUrl = "";
+    if (flag == 1) {
+      this.todoService.patchTodo(_id, { title, body, tags, _id, status }).subscribe(
+        (res: any) => {
           console.log(res);
+          currentUrl = `/dashboard/todo/${this._id}`;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
+          console.log(currentUrl)
           this.close()
         },
-        err=>{
+        err => {
+          currentUrl = `/dashboard`
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
+          console.log(currentUrl)
           console.log(err)
         }
-        )
-      } else {
-        this.todoGroupService.patchTodoGroup(_id,{title, body, tags, _id,status}).subscribe(
-          (res:any)=>{
-            console.log(res);
-            this.close()
+      )
+    } else {
+      this.todoGroupService.patchTodoGroup(_id, { title, body, tags, _id, status }).subscribe(
+        (res: any) => {
+          console.log(res);
+          currentUrl = `/dashboard/todo-group/${this._id}`
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
+          console.log(currentUrl)
+          this.close()
         },
-        err=>{
+        err => {
+          currentUrl = `/dashboard`
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
+          console.log(currentUrl)
           console.log(err)
         }
       )
     }
+    console.log(currentUrl)
+
   }
   close() {
     this.dialogRef.close();

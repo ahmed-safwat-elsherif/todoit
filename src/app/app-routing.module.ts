@@ -23,11 +23,11 @@ const routes: Routes = [
     children: [
       {path:'default',component:DefaultComponent},
       // {path: '', redirectTo: 'todo-groups'},
-      {path: 'todo-group', redirectTo:'default',pathMatch: 'full'},
-      {path: 'todo-group/:_id', component: TodoGroupComponent},
-      {path: 'todo/:_id', component: TodoComponent},
-      {path:'table-groups',component:GroupTableComponent},
-      {path:'table-todo',component:TodoTableComponent},
+      {path: 'todo-group',  redirectTo:'default',pathMatch: 'full'},
+      {path: 'todo-group/:_id',pathMatch: 'full', component: TodoGroupComponent},
+      {path: 'todo/:_id',pathMatch: 'full', component: TodoComponent},
+      {path:'table-groups',pathMatch: 'full',component:GroupTableComponent},
+      {path:'table-todo',pathMatch: 'full',component:TodoTableComponent},
     ]
   },
   { path: '**', component: NotFoundComponent },

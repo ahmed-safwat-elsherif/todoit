@@ -57,11 +57,12 @@ export class SignUpComponent implements OnInit,OnChanges,AfterViewInit {
     this.isLoad = "";
     this.isExists=false;
     this.userService.postRegister(this.registerInfo).subscribe(
-    (res:any)=>{
-      console.log(res)
-      this.loading = false;
-      this.isLoad="hide"
-      if(res.success){
+      (res:any)=>{
+        console.log(res)
+        this.loading = false;
+        this.isLoad="hide"
+        if(res.success){
+        this.isExists=false;
         this.router.navigate(['login']);  
       }
     },

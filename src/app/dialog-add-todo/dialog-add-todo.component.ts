@@ -92,6 +92,7 @@ export class DialogAddTodoComponent implements OnInit {
     )
     this.dialogRef.close();
     let currentUrl = `/dashboard/todo/${this._id}`;
+    console.log(currentUrl)
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate([currentUrl]);
     });
