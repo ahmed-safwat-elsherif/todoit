@@ -26,9 +26,13 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
-import { DialogTodoComponent } from './dialog-todo/dialog-todo.component';
 import { DialogTodoGroupComponent } from './dialog-todo-group/dialog-todo-group.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { DefaultComponent } from './default/default.component';
+import { DialogAddTodoComponent } from './dialog-add-todo/dialog-add-todo.component';
+import { TodoTableComponent } from './todo-table/todo-table.component';
+import { GroupTableComponent } from './group-table/group-table.component';
+import { DialogEditTodoComponent } from './dialog-edit-todo/dialog-edit-todo.component';
 
 const MaterialModules = [
   MatSliderModule,
@@ -55,8 +59,12 @@ const MaterialModules = [
     TodoComponent,
     ProfileComponent,
     NotFoundComponent,
-    DialogTodoComponent,
-    DialogTodoGroupComponent
+    DialogTodoGroupComponent,
+    DefaultComponent,
+    DialogAddTodoComponent,
+    TodoTableComponent,
+    GroupTableComponent,
+    DialogEditTodoComponent
   ],
   imports: [
     BrowserModule,

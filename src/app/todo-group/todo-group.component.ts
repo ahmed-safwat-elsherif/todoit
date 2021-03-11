@@ -2,6 +2,10 @@ import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { TodoGroupService } from '../services/todo-group.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import {DialogAddTodoComponent} from '../dialog-add-todo/dialog-add-todo.component'
+import {TodoService} from '../services/todo.service'
+import { DialogEditTodoComponent } from '../dialog-edit-todo/dialog-edit-todo.component';
 // import {HttpParams} from '@angular/common/http'
 @Component({
   selector: 'app-todo-group',
@@ -19,12 +23,15 @@ export class TodoGroupComponent implements OnInit,OnChanges,DoCheck {
     title:"",
     body:"",
     tags:[],
-    todos:[]
+    todos:[],
+    status:""
   };
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private todoGroupService: TodoGroupService,
+    private dialog: MatDialog,
+    private todoService: TodoService
   ) {
 
     this.getGroup()
@@ -35,7 +42,6 @@ export class TodoGroupComponent implements OnInit,OnChanges,DoCheck {
     }
     this._id = this.route.snapshot.paramMap.get('_id') || "";
     this.getGroup()
-    
   }
   ngOnInit(): void {
   }
@@ -81,5 +87,55 @@ export class TodoGroupComponent implements OnInit,OnChanges,DoCheck {
   }
   drop(event: CdkDragDrop<[]>) {
     moveItemInArray(this.todoGroup.tags, event.previousIndex, event.currentIndex);
+  }
+  openDialog(id){
+    this.dialog.open(DialogAddTodoComponent,{
+      data: {
+        todoGroupId: id,
+      }
+    });
+  }
+  openEditDialog(id){
+    this.dialog.open(DialogEditTodoComponent,{
+      data: {
+        _id: id,
+        title:this.todoGroup.title,
+        body:this.todoGroup.body,
+        tags:this.todoGroup.tags,
+        status:this.todoGroup.status,
+        flag:2
+      }
+    });
+  }
+  changeStatus(id){
+    let todo = this.todos.find(todo=>todo?._id==id);
+    console.log(id,todo._id);
+    todo.status = (todo.status == "in progress")? "done":"in progress";
+    let {title, body, tags, _id,status}= todo
+    this.todoService.patchTodo(id,{title, body, tags, _id,status}).subscribe(
+      (res:any)=>{
+        console.log(res);
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  toTodoInfo(id){
+    this.router.navigate([`dashboard/todo/${id}`]);
+  }
+  deleteTodo(id){
+    console.log(id)
+    
+    this.todoService.deleteTodo(id).subscribe(
+      (res:any)=>{
+        console.log(res)
+        let newTodo = this.todos.filter(todo=>todo._id!=id);
+        this.allTodo = newTodo;
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
   }
 }

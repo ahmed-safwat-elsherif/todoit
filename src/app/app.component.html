@@ -1,6 +1,6 @@
 <div class="app-root">
   <h1 class="p-2 app-title">ToDoiT</h1>
   <div class="container-fluid d-flex justify-content-center align-items-center">
-    <router-outlet></router-outlet>
+    <router-outlet (todoCreated)="onTodoCreated($event)"></router-outlet>
   </div>
 </div>

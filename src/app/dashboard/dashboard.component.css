@@ -106,3 +106,7 @@ ul::-webkit-scrollbar {
   table {
     width: 100%;
   }
+
+  .clickable{
+    cursor: pointer;
+  }

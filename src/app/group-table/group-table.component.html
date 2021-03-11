@@ -1,0 +1,41 @@
+<h2>Groups</h2>
+<div *ngIf="!isLoading && !isError">
+  <div class="table" *ngIf="groups.length > 0">
+    <table class="table table-hover ">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Title</th>
+          <th scope="col">status</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of groups; let i = index" class="clickable">
+          <th scope="row">{{i+1}}</th>
+          <td (click)="changeStatus(group._id)" class="clickable title" *ngIf="group.status=='in progress'">{{group.title}}</td>
+          <td (click)="changeStatus(group._id)" class="clickable title" *ngIf="group.status=='done'" class="marked">{{group.title}}</td>
+          <td *ngIf="group.status=='in progress'"><mat-icon>cached</mat-icon></td>
+          <td *ngIf="group.status=='done'"><mat-icon>done</mat-icon></td>
+          <td class="d-flex">
+            <button class="mr-1" mat-mini-fab color="primary" (click)="toGroupInfo(group._id)" aria-label="Example icon button with a filter list icon">
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+            
+            <button mat-mini-fab color="warn" (click)="deleteTodo(group._id)" aria-label="Example icon button with a filter list icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="isLoading && !isError" class="d-flex justify-content-center align-items-center">
+  <div class="spinner-grow text-light" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="errors" *ngIf="isError">
+  <h3>Unable to get groups</h3>
+</div>

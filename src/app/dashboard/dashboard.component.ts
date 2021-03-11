@@ -4,6 +4,7 @@ import {TodoService} from '../services/todo.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogTodoGroupComponent} from '../dialog-todo-group/dialog-todo-group.component'
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,7 +21,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
   constructor(
     private todoService:TodoService,
     private todoGroupService:TodoGroupService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router:Router,
+    private route: ActivatedRoute
   ) { }
   solosLimit=30;
   solosSkip=0;
@@ -72,6 +75,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
       }
     )
   }
+  onTodoCreated(e){
+    console.log(e)
+  }
   openDialogTodo(){
     const dialogRef = this.dialog.open(DialogTodoGroupComponent);
 
@@ -83,6 +89,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
     // let a = new Observable();
     // this.subscriberTodos.unsubscribe();
     // this.subscriberTodoGroups.unsubscribe();
+  }
+  toGroupTable(){
+    this.router.navigate([`dashboard/table-groups`]);
+  }
+  toTodoTable(){
+    this.router.navigate(['dashboard/table-todo'])
   }
 
 }

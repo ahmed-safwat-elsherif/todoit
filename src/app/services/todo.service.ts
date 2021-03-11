@@ -19,4 +19,40 @@ export class TodoService {
     };
     return this.http.get(`${this.baseURL}/todos/?limit=${limit}&skip=${skip}`,httpOptions)
   }
+  getTodoByID(id){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization':this.token
+      })
+    };
+    return this.http.get(`${this.baseURL}/todos/${id}`,httpOptions);
+  }
+  postNewTodo(body){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization':this.token
+      })
+    };
+    return this.http.post(`${this.baseURL}/todos`,body,httpOptions)
+  }
+  patchTodo(id,updates){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization':this.token
+      })
+    };
+    return this.http.patch(`${this.baseURL}/todos/${id}`,updates,httpOptions)
+  }
+  deleteTodo(id){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization':this.token
+      })
+    };
+    return this.http.delete(`${this.baseURL}/todos/${id}`,httpOptions)
+  }
 }

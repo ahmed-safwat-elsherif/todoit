@@ -7,8 +7,11 @@ import {TodoGroupComponent} from './todo-group/todo-group.component'
 import {TodoComponent} from './todo/todo.component';
 import {ProfileComponent} from './profile/profile.component';
 import {NotFoundComponent} from './not-found/not-found.component'
+import { DefaultComponent } from './default/default.component';
+import { TodoTableComponent } from './todo-table/todo-table.component';
+import { GroupTableComponent } from './group-table/group-table.component';
 const routes: Routes = [
-  {path: '', redirectTo: 'signup', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'profile', component: ProfileComponent },
@@ -18,10 +21,13 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
+      {path:'default',component:DefaultComponent},
       // {path: '', redirectTo: 'todo-groups'},
-      {path: 'todo-group', redirectTo:'dashboard',pathMatch: 'full'},
+      {path: 'todo-group', redirectTo:'default',pathMatch: 'full'},
       {path: 'todo-group/:_id', component: TodoGroupComponent},
       {path: 'todo/:_id', component: TodoComponent},
+      {path:'table-groups',component:GroupTableComponent},
+      {path:'table-todo',component:TodoTableComponent},
     ]
   },
   { path: '**', component: NotFoundComponent },

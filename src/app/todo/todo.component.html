@@ -1,1 +1,35 @@
+<div>
+    <a mat-stroked-button [routerLink]="['/dashboard/default']">Back</a>
+ </div>
+ <hr>
+<div *ngIf="!isLoading && !isError">
+    <p><b>Title:</b></p>
+    <h2>{{todo.title}}</h2>
+    <hr>
+    <p><b>Body:</b></p>
+    <p>{{todo.body}}</p>
+    <hr>
+    <span class="d-block"><b>Tags:</b></span><br>
+    <div class="tags">
+        <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)">
+            <mat-chip class="example-box" cdkDrag *ngFor="let tag of todo.tags">
+                {{tag.name}}
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+</div>
 
+<div *ngIf="isLoading && !isError" class="d-flex justify-content-center align-items-center">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div *ngIf="!isLoading && isError">
+    <div class="text-center">
+        <img src="../../assets/images/not-found.jpg" alt="" class="img-fluid">
+        <h2>
+            Unable to get todo group :'(
+        </h2>
+    </div>
+</div>

@@ -1,16 +1,12 @@
 <mat-dialog-content class="mat-typography">
-    <h1>Add a todo/group</h1>
+    <h1>Add a todo to group</h1>
     <br>
     <br>
     <div class="errors text-danger">
-        <span class="type d-block" *ngIf="isType">Choose a type</span>
         <span class="title d-block" *ngIf="isTitle">Choose a title</span>
         <span class="title d-block" *ngIf="isTitleLong">Title must be maximum 20 character</span>
     </div>
-    <mat-radio-group aria-label="Select an option" [(ngModel)]="type">
-        <mat-radio-button default value="1">Group</mat-radio-button>
-        <mat-radio-button value="2">Todo(solo)</mat-radio-button>
-      </mat-radio-group>
+
     <mat-form-field class="example-full-width">
         <mat-label></mat-label>
         <input matInput placeholder="Enter group title" [(ngModel)]="title">
@@ -42,7 +38,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="center">
     <div class="buttons justify-content-center align-items-center">
-        <button mat-raised-button color="primary" (click)="addTodo()">Add</button>
+        <button mat-raised-button color="primary" (click)="updateItem(flag)">Change</button>
         <button mat-raised-button (click)="close()">Cancel</button>
     </div>
 </mat-dialog-actions>

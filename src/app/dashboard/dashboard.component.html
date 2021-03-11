@@ -9,13 +9,17 @@
       <div class="row">
         <div class="col-md-3 side-bar p-2">
           <p class="pt-1">
-            <span matBadge="{{groups.length}}" matBadgeOverlap="false"><span style="font-size: 1.1rem;">Groups</span></span>
+            <span matBadge="{{groups.length}}" (click)="toGroupTable()" matBadgeOverlap="false">
+              <span class="clickable" style="font-size: 1.1rem;">
+              Groups
+            </span>
+          </span>
           </p>
           <div *ngIf="!sideBarIsGroupLoading && !sideBarIsGroupError">
             <ul class="todo-groups">
               <li class="todo-group-card p-2 mb-2 rounded-pill" *ngFor="let todoGroup of groups">
                 <a [routerLink]="['/dashboard/todo-group/',todoGroup._id]">{{todoGroup.title}}</a>
-                <span class="delete">&#10005;</span>
+                <!-- <span class="delete">&#10005;</span> -->
               </li>
             </ul>
           </div>
@@ -27,15 +31,19 @@
           <div class="errors" *ngIf="sideBarIsGroupError">
             <h3>Unable to get groups</h3>
           </div>
-          <hr>          
+          <hr>
           <p class="pt-1">
-            <span matBadge="{{solos.length}}" matBadgeOverlap="false"><span style="font-size: 1.1rem;">Solos</span></span>
+            <span matBadge="{{solos.length}}" matBadgeOverlap="false" (click)="toTodoTable()">
+              <span class="clickable" style="font-size: 1.1rem;">
+                Solos
+              </span>
+            </span>
           </p>
           <div *ngIf="!sideBarIsSoloLoading && !sideBarIsSoloError">
             <ul class="todos">
               <li class="todo-card p-2 mb-2 rounded-pill" *ngFor="let todo of solos">
                 <a [routerLink]="['/dashboard/todo/',todo._id]">{{todo.title}}</a>
-                <span class="delete">&#10005;</span>
+                <!-- <span class="delete">&#10005;</span> -->
               </li>
             </ul>
           </div>

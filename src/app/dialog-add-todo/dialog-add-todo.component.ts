@@ -5,22 +5,20 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { TodoGroupService } from '../services/todo-group.service';
 import { TodoService } from '../services/todo.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
-  selector: 'app-dialog-todo-group',
-  templateUrl: './dialog-todo-group.component.html',
-  styleUrls: ['./dialog-todo-group.component.css']
+  selector: 'app-dialog-add-todo',
+  templateUrl: './dialog-add-todo.component.html',
+  styleUrls: ['./dialog-add-todo.component.css']
 })
-export class DialogTodoGroupComponent implements OnInit {
-  @Output() todoCreated = new EventEmitter();
+export class DialogAddTodoComponent implements OnInit {
   title = "untitled";
   body = "";
-  type = "1";
   tags: Array<any> = [
     { name: 'Lemon' },
     { name: 'Lime' },
     { name: 'Apple' },
   ];
-  isType = false;
   isTitle = false;
   isTitleLong = false;
 
@@ -28,9 +26,11 @@ export class DialogTodoGroupComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  _id = this.route.snapshot.paramMap.get("_id") || "";
+  token = localStorage.getItem('todoitUserToken') || "";
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   constructor(
-    public dialogRef: MatDialogRef<DialogTodoGroupComponent>,
+    public dialogRef: MatDialogRef<DialogAddTodoComponent>,
     private todoService: TodoService,
     private todoGroupService: TodoGroupService,
     private route:ActivatedRoute,
@@ -39,6 +39,8 @@ export class DialogTodoGroupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._id = this.data.todoGroupId;
+    console.log(this._id)
   }
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -64,10 +66,8 @@ export class DialogTodoGroupComponent implements OnInit {
     console.log(this.tags);
     console.log(this.title);
     console.log(this.body);
-    console.log(this.type);
     console.log(this.title.length)
     this.isTitle=false;
-    this.isType = false;
     this.isTitleLong=false;
     if (this.title.length == 0) {
       this.isTitle = true;
@@ -77,41 +77,21 @@ export class DialogTodoGroupComponent implements OnInit {
       this.isTitleLong = true;
       return;
     }
-    let currentUrl;
-    if (this.type == "1") {
-      this.todoGroupService.postNewTodoGroup({
-        tags: this.tags,
-        body: this.body,
-        title: this.title
-      }).subscribe(
-        (res: any) => {
-          console.log(res)
-          this.todoCreated.emit({group:true, solo:false,res})
-        },
-        (err) => {
-          console.log(err)
-        }
-        )
-      currentUrl = '/dashboard/table-todo';
-      this.dialogRef.close();
-    } else {
-      this.todoService.postNewTodo({
-        tags: this.tags,
-        body: this.body,
-        title: this.title
-      }).subscribe(
-        (res: any) => {
-          console.log(res)
-        },
-        (err) => {
-          console.log(err)
-        }
-        )
-      currentUrl = '/dashboard/table-groups';
-      this.dialogRef.close();
-    }
-    console.log(this.router.url)
-    console.log(currentUrl)
+    this.todoGroupService.postNewTodo({
+      todoGroupId:this._id,
+      tags: this.tags,
+      body: this.body,
+      title: this.title
+    }).subscribe(
+      (res: any) => {
+        console.log(res)
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
+    this.dialogRef.close();
+    let currentUrl = `/dashboard/todo/${this._id}`;
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         this.router.navigate([currentUrl]);
     });
@@ -120,13 +100,11 @@ export class DialogTodoGroupComponent implements OnInit {
     this.dialogRef.close();
     this.title = "untitled";
     this.body = "";
-    this.type = "1"
     this.tags = [
       { name: 'Lemon' },
       { name: 'Lime' },
       { name: 'Apple' },
     ];
-    this.isType = false;
     this.isTitle = false;
     this.isTitleLong = false;
   }

@@ -1,4 +1,15 @@
-<div *ngIf="!isLoading && !isError">
+<div>
+   <a mat-stroked-button [routerLink]="['/dashboard/default']">Back</a>
+</div>
+<hr>
+<div *ngIf="!isLoading && !isError" style="position: relative;">
+   <p><b>Title:</b></p>
+   <div style="position:absolute;right: 0; top:0; z-index: 2;">
+      <button mat-mini-fab color="primary" (click)="openEditDialog(_id)"
+         aria-label="Example icon button with a filter list icon">
+         <mat-icon>create</mat-icon>
+      </button>
+   </div>
    <h2>{{todoGroup.title}}</h2>
    <hr>
    <p><b>Body:</b></p>
@@ -14,6 +25,7 @@
       </mat-chip-list>
    </div>
    <hr>
+   <div><button mat-stroked-button (click)="openDialog(_id)" color="primary">+ Add todo to group</button></div>
    <br>
    <span class="d-block"><b>Todos</b></span>
    <br>
@@ -21,32 +33,46 @@
       <mat-label>Filter by title</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
    </mat-form-field>
-   <div class="empty text-center" *ngIf="todos.length == 0" >
+   <div class="empty text-center" *ngIf="todos.length == 0">
       Empty<br>No todos found
    </div>
    <div class="table-responsive" *ngIf="todos.length > 0">
       <table class="table table-hover ">
          <thead>
-           <tr>
-             <th scope="col">No.</th>
-             <th scope="col">Title</th>
-             <th scope="col">created at</th>
-             <th scope="col">status</th>
-             <th scope="col">Options</th>
-           </tr>
+            <tr>
+               <th scope="col">No.</th>
+               <th scope="col">Title</th>
+               <th scope="col">Status</th>
+               <th scope="col">Options</th>
+            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let todo of todos; let i = index" (click)="gotoTodo(todo._id)" class="clickable">
-             <th scope="row">{{i}}</th>
-             <td  >{{todo.title}}</td>
-             <td>{{todo.createdAt}}</td>
-             <td>{{todo.status}}</td>
-             <td>
-                
-             </td>
-           </tr>
+            <tr *ngFor="let todo of todos; let i = index" class="clickable">
+               <th scope="row">{{i+1}}</th>
+               <td (click)="changeStatus(todo._id)" class="clickable title" *ngIf="todo.status=='in progress'">
+                  {{todo.title}}</td>
+               <td (click)="changeStatus(todo._id)" class="clickable title" *ngIf="todo.status=='done'" class="marked">
+                  {{todo.title}}</td>
+               <td *ngIf="todo.status=='in progress'">
+                  <mat-icon>cached</mat-icon>
+               </td>
+               <td *ngIf="todo.status=='done'">
+                  <mat-icon>done</mat-icon>
+               </td>
+               <td class="d-flex">
+                  <button class="mr-1" mat-mini-fab color="primary" (click)="toTodoInfo(todo._id)"
+                     aria-label="Example icon button with a filter list icon">
+                     <mat-icon>open_in_new</mat-icon>
+                  </button>
+
+                  <button mat-mini-fab color="warn" (click)="deleteTodo(todo._id)"
+                     aria-label="Example icon button with a filter list icon">
+                     <mat-icon>delete</mat-icon>
+                  </button>
+               </td>
+            </tr>
          </tbody>
-       </table>
+      </table>
    </div>
 </div>
 <div *ngIf="isLoading && !isError" class="d-flex justify-content-center align-items-center">
@@ -56,7 +82,7 @@
 </div>
 <div *ngIf="!isLoading && isError">
    <div class="text-center">
-      
+
       <img src="../../assets/images/not-found.jpg" alt="" class="img-fluid">
       <h2>
          Unable to get todo group :'(

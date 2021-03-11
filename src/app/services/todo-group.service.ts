@@ -35,7 +35,7 @@ export class TodoGroupService {
         'Authorization':this.token
       })
     };
-    return this.http.post(`${this.baseURL}/todoGroups/todogroup/${todoGroupID}`,httpOptions)
+    return this.http.delete(`${this.baseURL}/todoGroups/todogroup/${todoGroupID}`,httpOptions)
   }
   getTodoGroup(todoGroupID){
     const httpOptions = {

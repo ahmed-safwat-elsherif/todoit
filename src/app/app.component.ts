@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'todoit-app';
+  onTodoCreated(e){
+    console.log(e)
+  }
 }
