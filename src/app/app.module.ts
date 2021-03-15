@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
@@ -13,7 +15,11 @@ import { TodoGroupComponent } from './todo-group/todo-group.component';
 import { TodoComponent } from './todo/todo.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { FormsModule } from '@angular/forms';
+import { DefaultComponent } from './default/default.component';
+import { DialogAddTodoComponent } from './dialog-add-todo/dialog-add-todo.component';
+import { TodoTableComponent } from './todo-table/todo-table.component';
+import { GroupTableComponent } from './group-table/group-table.component';
+import { DialogEditTodoComponent } from './dialog-edit-todo/dialog-edit-todo.component';
 
 import { MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,12 +34,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
 import { DialogTodoGroupComponent } from './dialog-todo-group/dialog-todo-group.component';
 import {MatRadioModule} from '@angular/material/radio';
-import { DefaultComponent } from './default/default.component';
-import { DialogAddTodoComponent } from './dialog-add-todo/dialog-add-todo.component';
-import { TodoTableComponent } from './todo-table/todo-table.component';
-import { GroupTableComponent } from './group-table/group-table.component';
-import { DialogEditTodoComponent } from './dialog-edit-todo/dialog-edit-todo.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 const MaterialModules = [
   MatSliderModule,
   MatButtonModule,
@@ -46,7 +48,8 @@ const MaterialModules = [
   MatChipsModule,
   MatTableModule,
   MatBadgeModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDatepickerModule
 ]
 
 @NgModule({
@@ -73,6 +76,8 @@ const MaterialModules = [
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ...MaterialModules
   ],
   providers: [],

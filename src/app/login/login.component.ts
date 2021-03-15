@@ -18,17 +18,17 @@ export class LoginComponent implements OnInit,AfterViewInit {
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,) { 
-      this.userService.getProfile(localStorage.getItem('todoitUserToken')).subscribe(
-        (res:any)=>{
-          console.log(res)
-          if(res.success){
-            this.router.navigate(['dashboard']);
-          }
-        },
-        err=>{
-          console.log(err)
-        }
-      )
+      // this.userService.getProfile(localStorage.getItem('todoitUserToken')).subscribe(
+      //   (res:any)=>{
+      //     console.log(res)
+      //     if(res.success){
+      //       this.router.navigate(['dashboard']);
+      //     }
+      //   },
+      //   err=>{
+      //     console.log(err)
+      //   }
+      // )
     }
   ngOnInit(): void {
   }

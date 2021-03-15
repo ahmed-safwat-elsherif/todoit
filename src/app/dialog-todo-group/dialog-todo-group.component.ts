@@ -92,7 +92,7 @@ export class DialogTodoGroupComponent implements OnInit {
           console.log(err)
         }
         )
-      currentUrl = '/dashboard/table-todo';
+      currentUrl = '/dashboard';
       this.dialogRef.close();
     } else {
       this.todoService.postNewTodo({
@@ -107,7 +107,7 @@ export class DialogTodoGroupComponent implements OnInit {
           console.log(err)
         }
         )
-      currentUrl = '/dashboard/table-groups';
+      currentUrl = '/dashboard';
       this.dialogRef.close();
     }
     console.log(this.router.url)
