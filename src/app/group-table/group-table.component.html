@@ -44,6 +44,9 @@
       </tbody>
     </table>
   </div>
+  <div *ngIf="groups.length == 0">
+    <h2>No todo groups found</h2>
+  </div>
 </div>
 <div *ngIf="isLoading && !isError" class="d-flex justify-content-center align-items-center">
   <div class="spinner-grow text-light" role="status">

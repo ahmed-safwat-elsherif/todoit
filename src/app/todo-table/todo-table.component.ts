@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../services/todo.service';
+import {FormGroup, FormControl} from '@angular/forms';
+
 @Component({
   selector: 'app-todo-table',
   templateUrl: './todo-table.component.html',
@@ -9,13 +11,17 @@ import { TodoService } from '../services/todo.service';
 export class TodoTableComponent implements OnInit {
   public todos=[];
   solos=[];
+  public allTodo=[];
   
   constructor(
     private todoService:TodoService,
     private router:Router,
     private route: ActivatedRoute
   ) { }
-
+  range = new FormGroup({
+    start: new FormControl('2021-03-15T22:00:00.000Z'),
+    end: new FormControl('2021-03-16T22:00:00.000Z')
+  });
   todosLimit=30;
   todosSkip=0;
   isLoading = true;
@@ -34,6 +40,7 @@ export class TodoTableComponent implements OnInit {
         this.isLoading = false;
         this.isError = false;
         this.todos = res.todos;
+        this.allTodo = res.todos;
       },
       err=>{
         this.isLoading = false;
@@ -42,6 +49,24 @@ export class TodoTableComponent implements OnInit {
       }
     )
     // Fetch all todo todos
+  }
+  getDate(e){
+    let dStart = new Date(this.range.value.start)
+    let dEnd = new Date(this.range.value.end);
+    if(dEnd.getTime() == 0){
+      this.todos = this.allTodo;
+      return;
+    }
+    let todoGroup = this.allTodo.filter(todo=>{
+      var todoCreateAt = new Date(todo.createdAt); // 10:09 to
+      console.log(todoCreateAt.getTime())
+      console.log(dStart.getTime())
+      console.log(dEnd.getTime())
+      console.log(((todoCreateAt.getTime() >= dStart.getTime()) && (todoCreateAt.getTime() <= dEnd.getTime())))
+
+      return ((todoCreateAt.getTime() >= dStart.getTime()) && (todoCreateAt.getTime() <= dEnd.getTime())); 
+    })
+    this.todos = todoGroup;
   }
   changeStatus(id){
     let todo = this.todos.find(todo=>todo?._id==id);

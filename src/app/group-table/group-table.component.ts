@@ -103,18 +103,3 @@ export class GroupTableComponent implements OnInit {
     )
   }
 }
-
-function dateCompare(createAt:any,from:any,to:any){
-  // console.log(createAt)
-  // console.log(from)
-  // console.log(to)
-  var todoCreateAt = new Date(createAt), // 10:09 to
-      fromDate = new Date(from),
-      toDate = new Date(to);
-  console.log(todoCreateAt)
-  console.log(todoCreateAt.getTime())
-  console.log(fromDate.getTime())
-  console.log(toDate.getTime())
-  console.log(((todoCreateAt.getTime() >= fromDate.getTime()) && (todoCreateAt.getTime() <= toDate.getTime())))
-  return ((todoCreateAt.getTime() >= fromDate.getTime()) && (todoCreateAt.getTime() <= toDate.getTime())); 
-}

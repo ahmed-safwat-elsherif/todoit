@@ -101,9 +101,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
     // });
   }
   ngOnDestroy(){
-    // let a = new Observable();
-    // this.subscriberTodos.unsubscribe();
-    // this.subscriberTodoGroups.unsubscribe();
   }
   toGroupTable(){
     this.router.navigate([`dashboard/table-groups`]);
